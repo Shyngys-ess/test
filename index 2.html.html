@@ -1,0 +1,36 @@
+<div class="question-card">
+  <span class="category">Математика</span>
+  <div class="question">
+    В треугольнике ABC известно, что ∠A = 40°, ∠B = 70°.<br>
+    Чему равен <strong>внешний угол</strong> при вершине C?
+  </div>
+  <input type="text" class="answer-field" placeholder="Введи число..." id="math-q1">
+  <button onclick="checkMath1()">Проверить</button>
+  <div id="result-math1" style="margin-top:10px; font-weight:bold;"></div>
+</div>
+
+<script>
+function checkMath1() {
+  const input = document.getElementById("math-q1").value.trim();
+  const resultDiv = document.getElementById("result-math1");
+  
+  resultDiv.className = "";
+  resultDiv.innerHTML = "";
+
+  if (input === "110" || input === "110°" || input === "110 градусов") {
+    resultDiv.innerHTML = "Правильно! ✓";
+    resultDiv.style.color = "green";
+    document.getElementById("math-q1").classList.add("right");
+  } else {
+    resultDiv.innerHTML = "Неправильно. Попробуй ещё раз.";
+    resultDiv.style.color = "red";
+    document.getElementById("math-q1").classList.add("wrong");
+  }
+}
+</script>
+
+<style>
+.right  { border: 2px solid #22c55e !important; background: #f0fdf4; }
+.wrong  { border: 2px solid #ef4444 !important; background: #fef2f2; }
+.answer-field { width: 180px; }
+</style>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Динамическая викторина</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 0 15px;
+      background: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .question-block {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .question-text {
+      font-size: 1.15em;
+      margin: 0 0 12px 0;
+      font-weight: 600;
+      color: #222;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 1.05em;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #4a90e2;
+    }
+    button {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 32px;
+      font-size: 1.1em;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #357abd;
+    }
+    .right  { border-color: #27ae60 !important; background: #e8f5e9; }
+    .wrong  { border-color: #c0392b !important; background: #ffebee; }
+  </style>
+</head>
+<body>
+
+  <h1>Проверь свои знания</h1>
+
+  <div id="test"></div>
+
+  <button id="checkButton">проверить ответы</button>
+
+  <script>
+    let questions = [
+      'сколько кара соз у абая',
+      '3x − 7 = 5x + 1',
+      'Караси составили ⅓ всех пойманных рыб, окуни — ¼ остатка, а щуки — всё остальное. Поймано 48 рыб. Сколько щук?'
+    ];
+
+    let answers = [
+      '30',
+      'x = −4',
+      '28 щук'
+    ];
+
+    const container = document.getElementById('test');
+
+    questions.forEach((q, index) => {
+      const block = document.createElement('div');
+      block.className = 'question-block';
+
+      const p = document.createElement('p');
+      p.className = 'question-text';
+      p.textContent = `${index + 1}. ${q}`;
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'answer-input';
+      input.dataset.index = index;          
+
+      block.appendChild(p);
+      block.appendChild(input);
+      container.appendChild(block);
+    });
+
+    const checkButton = document.getElementById('checkButton');
+    const inputs = document.querySelectorAll('.answer-input');
+
+    checkButton.addEventListener('click', () => {
+      inputs.forEach(input => {
+        input.classList.remove('right', 'wrong');
+
+        const index = parseInt(input.dataset.index);
+        const userAnswer = input.value.trim().toLowerCase();
+        const correct = answers[index].toLowerCase();
+
+        if (userAnswer === correct) {
+          input.classList.add('right');
+        } else {
+          input.classList.add('wrong');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
